@@ -13,7 +13,7 @@ Primitive/typed params/return type. Synchronous function.
  * @param <param_1> - <description of param>
  * @param <param_2> - <description of param>
  *
- * @return {<Type>} - <description of return>
+ * @return <Type> - <description of return>
  *
  * @throws {<ErrorType>} <when/why>
  * @throws {<ErrorType>} <when/why>
@@ -40,7 +40,7 @@ With generic/object params/return with nested fields type. Asynchronous function
  *       - <elemField_1>: <type> - <description>
  *       - <elemField_2>: <type> - <description>
  *
- * @return {<Type>} - <description of return>:
+ * @return <Type> - <description of return>:
  *   - <field_1>: <type> - <description>
  *   - <nestedObj>: <obj type> - <short description of nested object>:
  *       - <nestedField_1>: <type> - <description>
@@ -71,7 +71,6 @@ With generic/object params/return with nested fields type. Asynchronous function
 - Mark optional fields with ```?```.
 
 #### Return ```@param```
-- Always wrap the type in ```{}```.
 - Document nested objects and arrays the same way as parameters.
 
 #### Throws ```@throws```
@@ -103,7 +102,7 @@ With generic/object params/return with nested fields type. Asynchronous function
  *   - headers: object - request headers:
  *       - authToken: string - bearer token used for authorization
  *
- * @return {UserOverview} - resolved overview:
+ * @return UserOverview - resolved overview:
  *   - profile: object - primary identity fields:
  *       - id: string - unique user id
  *       - email: string - user’s email address
@@ -153,7 +152,7 @@ export async function getUserOverview(
  *   - headers: Headers - request headers:
  *       - authToken: std::string — bearer token used for authorization
  *
- * @return {UserOverview} — resolved overview:
+ * @return UserOverview — resolved overview:
  *   - profile: std::map<std::string, std::string> — primary identity fields:
  *       - id: std::string — unique user id
  *       - email: std::string — user’s email address
@@ -195,7 +194,7 @@ UserOverview getUserOverview(const std::string& userId,
  *   - headers: Headers - request headers:
  *       - authToken: String — bearer token used for authorization
  *
- * @return {UserOverview} — resolved overview:
+ * @return UserOverview — resolved overview:
  *   - profile: Map<String, String> — primary identity fields:
  *       - id: String — unique user id
  *       - email: String — user’s email address
