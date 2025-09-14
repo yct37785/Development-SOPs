@@ -9,11 +9,11 @@ Primitive/typed params/return type. Synchronous function.
 /******************************************************************************************************************
  * <Brief imperative summary>
  *
- * @param <name>: <type> - <description/constraints>
- * @param <param_1>: <type> - <description of param>
- * @param <param_2>: <type> - <description of param>
+ * @param <name> - <description/constraints>
+ * @param <param_1> - <description of param>
+ * @param <param_2> - <description of param>
  *
- * @return <type> - <description of return>
+ * @return - <description of return>
  *
  * @throws {<ErrorType>} <when/why>
  * @throws {<ErrorType>} <when/why>
@@ -30,21 +30,21 @@ With generic/object params/return with nested fields type. Asynchronous function
 /******************************************************************************************************************
  * [ASYNC] <brief imperative summary>
  *
- * @param <name>: <type> - <description/constraints>
- * @param <objectParam>: <type> - <description of object>:
+ * @param <name> - <description/constraints>
+ * @param <objectParam> - <description of object>:
  *   - <field_1>: <type> - <description>
  *   - <field_2>?: <type> - <description, optional>
- *   - <nestedObj>: <type> - <short description of nested object>:
+ *   - <nestedObj>: obj - <short description of nested object>:
  *       + <nestedField_1>: <type> - <description>
- *   - <listField>?: <list type> - <description of list items>:
+ *   - <listField>?: Array - <description of list items>:
  *       + <elemField_1>: <type> - <description>
  *       + <elemField_2>: <type> - <description>
  *
- * @return <type> - <description of return>:
+ * @return - <description of return>:
  *   - <field_1>: <type> - <description>
- *   - <nestedObj>: <type> - <short description of nested object>:
+ *   - <nestedObj>: obj - <short description of nested object>:
  *       + <nestedField_1>: <type> - <description>
- *   - <listField>?: <list type> - <description of list items>:
+ *   - <listField>?: Array - <description of list items>:
  *       + <elemField_1>: <type> - <description>
  *       + <elemField_2>: <type> - <description>
  *
@@ -65,14 +65,25 @@ With generic/object params/return with nested fields type. Asynchronous function
 
 #### Parameters ```@param```
 - Document all parameters.
-- Always declare the type (primitive, object, list, etc.).
-- Expand objects by listing their nested fields, each with its type.
-- Use ```-``` for normal nesting, ```+``` for deeper fields for readability.
-- Expand arrays/lists/vectors by declaring them as ```Array```, ```List```, ```std::vector```, etc. then expand their element fields below.
 - Mark optional fields with ```?```.
+- Use ```-``` for normal nesting, ```+``` for deeper fields for readability.
+- Expand objects by listing their nested fields.
+- For arrays/lists/vectors, declare their primitive types ```Array```, ```List```, ```std::vector```, etc. then, like with objects, expand their element fields below.
 
-#### Return ```@param```
-- Document nested objects and arrays the same way as parameters.
+#### Parameter Fields Nesting
+- **Top-level types:** If type is already declared in the function signature, do not repeat it in the comment.
+  - Example: ```req: Request``` → ```@param req - Express request```
+- **Nested fields:** Always specify the type, since they are not visible in the signature.
+  - Example:
+    ```
+    @param req - Express request:
+      - body: obj - request body:
+        + email: string - user's email
+         + password: string - user's password
+    ```
+
+#### Return ```@return```
+- Follow the same conventions as with ```@param```
 
 #### Throws ```@throws```
 - Always wrap error types in ```{}```.
@@ -95,24 +106,24 @@ With generic/object params/return with nested fields type. Asynchronous function
 /******************************************************************************************************************
  * [ASYNC] Retrieves a user's overview (profile and optional recent activity).
  *
- * @param userId: string - unique user identifier (e.g., UUID)
- * @param opts: object - options controlling returned data:
+ * @param userId - unique user identifier
+ * @param opts - options controlling returned data:
  *   - includeActivity?: boolean - include recent activity if true (default: false)
  *   - limit?: number - max activity items to include (default: 10; range: 1–100)
- * @param req: object - request context:
- *   - headers: object - request headers:
+ * @param req - request context:
+ *   - headers: obj - request headers:
  *       + authToken: string - bearer token used for authorization
  *
- * @return UserOverview - resolved overview:
- *   - profile: object - primary identity fields:
- *       + id: string - unique user id
- *       + email: string - user’s email address
- *       + displayName: string - human-friendly display name
- *       + createdAt: string - ISO timestamp of account creation
+ * @return - resolved overview:
+ *   - profile: obj - user profile data:
+ *       + id: string - user identifier
+ *       + email: string - user’s email
+ *       + displayName: string - user’s display name
+ *       + createdAt: string - ISO timestamp
  *   - activity?: Array - recent activity (if requested):
- *       + id: string - activity id
- *       + type: string - activity type (e.g., LOGIN)
- *       + at: string - ISO timestamp when the activity occurred
+ *       + id: string - activity identifier
+ *       + type: string - activity type
+ *       + at: string - ISO timestamp
  *
  * @throws {AuthError} when the auth token is missing, expired, or invalid
  * @throws {NotFoundError} when the user does not exist
@@ -136,37 +147,31 @@ export async function getUserOverview(
   profile: { id: string; email: string; displayName: string; createdAt: string };
   activity?: Array<{ id: string; type: string; at: string }>;
 }> {
-  // ...implementation...
+  // implementation...
 }
 ```
 
 #### C++
 ```cpp
 /******************************************************************************************************************
- * [ASYNC] Retrieves a user's overview (profile and optional recent activity).
+ * [ASYNC] Fetches a user profile and optional recent actions.
  *
- * @param userId: std::string - unique user identifier (e.g., UUID)
- * @param opts: Options - options controlling returned data:
- *   - includeActivity?: bool — include recent activity if true (default: false)
- *   - limit?: int — max activity items to include (default: 10; range: 1–100)
- * @param req: Request - request context:
- *   - headers: Headers - request headers:
- *       + authToken: std::string — bearer token used for authorization
+ * @param userId - unique user identifier
+ * @param includeActivity - flag to include recent actions
  *
- * @return UserOverview — resolved overview:
- *   - profile: std::map<std::string, std::string> — primary identity fields:
- *       + id: std::string — unique user id
- *       + email: std::string — user’s email address
- *       + displayName: std::string — human-friendly display name
- *       + createdAt: std::string — ISO timestamp of account creation
- *   - activity?: std::vector<ActivityItem> — recent activity (if requested):
- *       + id: std::string — activity id
- *       + type: std::string — activity type (e.g., LOGIN)
- *       + at: std::string — ISO timestamp when the activity occurred
+ * @return - user overview:
+ *   - profile: obj - user profile data:
+ *       + id: string - user identifier
+ *       + email: string - user’s email
+ *       + displayName: string - user’s display name
+ *       + createdAt: string - ISO timestamp
+ *   - activity?: vector - recent actions (if requested):
+ *       + id: string - action identifier
+ *       + type: string - action type
+ *       + at: string - ISO timestamp
  *
- * @throws {AuthError} when the auth token is missing, expired, or invalid
- * @throws {NotFoundError} when the user does not exist
- * @throws {RateLimitError} when the request exceeds rate limits
+ * @throws {AuthError} when the user is unauthorized
+ * @throws {NotFoundError} when the user is not found
  *
  * @usage
  * @code{.cpp}
@@ -185,30 +190,24 @@ UserOverview getUserOverview(const std::string& userId,
 #### Java
 ```java
 /******************************************************************************************************************
- * [ASYNC] Retrieves a user's overview (profile and optional recent activity).
+ * [ASYNC] Retrieves a user profile and optional recent activity.
  *
- * @param userId: String - unique user identifier (e.g., UUID)
- * @param opts: Options - options controlling returned data:
- *   - includeActivity?: boolean — include recent activity if true (default: false)
- *   - limit?: int — max activity items to include (default: 10; range: 1–100)
- * @param req: Request - request context:
- *   - headers: Headers - request headers:
- *       + authToken: String — bearer token used for authorization
+ * @param userId - unique user identifier
+ * @param includeActivity - flag to include recent activity
  *
- * @return UserOverview — resolved overview:
- *   - profile: Map<String, String> — primary identity fields:
- *       + id: String — unique user id
- *       + email: String — user’s email address
- *       + displayName: String — human-friendly display name
- *       + createdAt: String — ISO timestamp of account creation
- *   - activity?: List<ActivityItem> — recent activity (if requested):
- *       + id: String — activity id
- *       + type: String — activity type (e.g., LOGIN)
- *       + at: String — ISO timestamp when the activity occurred
+ * @return - user overview:
+ *   - profile: obj - user profile data:
+ *       + id: String - user identifier
+ *       + email: String - user’s email
+ *       + displayName: String - user’s display name
+ *       + createdAt: String - ISO timestamp
+ *   - activity?: List - recent activity (if requested):
+ *       + id: String - activity identifier
+ *       + type: String - activity type
+ *       + at: String - ISO timestamp
  *
- * @throws {AuthException} when the auth token is missing, expired, or invalid
- * @throws {NotFoundException} when the user does not exist
- * @throws {RateLimitException} when the request exceeds rate limits
+ * @throws {AuthError} when the user is unauthorized
+ * @throws {NotFoundError} when the user does not exist
  *
  * @usage
  * <pre>{@code
