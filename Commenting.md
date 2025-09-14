@@ -3,7 +3,7 @@ Standardized commenting workflow for all projects, applies to all languages (Typ
 
 Each function, method, class, or exported/public symbol must have a **block comment** immediately above its declaration.
 
-## Comment Block
+## Comment Block For Functions
 Primitive/typed params/return type. Synchronous function.
 ```javascript
 /******************************************************************************************************************
@@ -91,7 +91,6 @@ With generic/object params/return with nested fields type. Asynchronous function
 
 #### Usage ```@usage```
 - Optional to include a minimal working snippet.
-- Use fenced code blocks with the appropriate language identifier.
 
 #### Placement
 - Comment blocks must appear immediately above the symbol.
@@ -223,3 +222,86 @@ public CompletableFuture<UserOverview> getUserOverview(String userId, Options op
     // ...
 }
 ```
+
+## Comment Block For Classes / Services / Providers
+Classes, services, providers, and equivalent constructs (e.g., dependency injection containers, context managers) should be documented using block comments immediately above their declaration.
+```javascript
+/******************************************************************************************************************
+ * <Brief imperative summary of the class/service/provider>
+ *
+ * @param <ctorOrProps> - <purpose/constraints>             // constructor args or provider props
+ * @param <options>? - <optional behavior/defaults>
+ *
+ * @property <field_1>: <type> - <meaning/constraints>      // public instance fields, static fields, or exposed values
+ * @property <field_2>?: <type> - <optional/defaults>
+ * @property <nestedObj>: obj - <short description of nested object>:
+ *   + <nestedField_1>: <type> - <description>
+ *   + <nestedField_2>?: <type> - <description, optional>
+ * @property <listField>?: Array - <description of list items>:
+ *   + <elemField_1>: <type> - <description>
+ *   + <elemField_2>: <type> - <description>
+ *
+ * @usage
+ * ```<language>
+ * <minimal working example showing instantiation, wrapping, or consumption>
+ * ```
+ ******************************************************************************************************************/
+```
+
+### Conventions
+#### Brief
+- A short, imperative summary of what the class/service/provider does.
+- State its purpose, guarantees, and typical use cases.
+
+#### Parameters ```@param```
+- Use for **constructor arguments** or **provider props**.
+- Omit type if already declared in the signature.
+- Expand objects/lists/arrays following the same conventions as functions.
+
+#### Properties ```@property```
+- Use for **public fields**, **static members**, or **exposed context values**.
+- Always specify type, since it is not obvious at a glance.
+- Expand objects/lists/arrays following the same conventions as functions.
+
+### Usage ```@usage```
+- Optional to provide a minimal working example of instantiation or use.
+
+### Placement
+- Comment block must appear immediately above the class/service/provider declaration.
+- Each method in the class must be **documented separately** using the function block format.
+
+## Comment Block For Types / Interfaces
+Types, interfaces, and equivalent schema/struct definitions should be documented to explain the shape and contracts.
+```javascript
+/******************************************************************************************************************
+ * <Brief imperative summary of the type/interface>
+ *
+ * @property <field_1>: <type> - <meaning/constraints>
+ * @property <field_2>?: <type> - <optional/defaults>
+ * @property <nestedObj>: obj - <short description of nested object>:
+ *   + <nestedField_1>: <type> - <description>
+ *   + <nestedField_2>?: <type> - <description, optional>
+ * @property <listField>?: Array - <description of list items>:
+ *   + <elemField_1>: <type> - <description>
+ *   + <elemField_2>: <type> - <description>
+ *
+ * @usage
+ * ```<language>
+ * <minimal example constructing or consuming the type/interface>
+ * ```
+ ******************************************************************************************************************/
+```
+
+### Conventions
+#### Brief
+- A short, imperative summary of the type/interface and its role in the domain.
+
+#### Properties ```@property```
+- Document all fields with types and meanings.
+- Expand objects/lists/arrays following the same conventions as functions.
+
+#### Usage ```@usage```
+- Optional to provide a minimal example showing construction or consumption.
+
+#### Placement
+- Comment block must appear immediately above the type/interface declaration.
