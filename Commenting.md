@@ -224,26 +224,34 @@ public CompletableFuture<UserOverview> getUserOverview(String userId, Options op
 ```
 
 ## Comment Block For Classes / Services / Providers
-Classes, services, providers, and equivalent constructs (e.g., dependency injection containers, context managers) should be documented using block comments immediately above their declaration.
+Classes, services, providers, and equivalent constructs (e.g., dependency injection containers, context managers) should be documented using block comments immediately above their declaration. Use ```@param``` for constructor/props inputs, and ```@property``` for exposed fields.
 ```javascript
 /******************************************************************************************************************
- * <Brief imperative summary of the class/service/provider>
+ * <brief imperative summary of the class/service/provider>
  *
- * @param <ctorOrProps> - <purpose/constraints>             // constructor args or provider props
- * @param <options>? - <optional behavior/defaults>
+ * @param <ctorOrProps> - <description/constraints>
+ * @param <options>? - <optional behavior/defaults>:
+ *   - <optField_1>: <type> - <description>
+ *   - <optObj>?: obj - <short description of nested options>:
+ *       + <optNested_1>: <type> - <description>
+ *   - <optList>?: Array - <description of list items>:
+ *       + <elemField_1>: <type> - <description>
+ *       + <elemField_2>?: <type> - <description, optional>
  *
- * @property <field_1>: <type> - <meaning/constraints>      // public instance fields, static fields, or exposed values
+ * @property <field_1>: <type> - <meaning/constraints>
  * @property <field_2>?: <type> - <optional/defaults>
- * @property <nestedObj>: obj - <short description of nested object>:
- *   + <nestedField_1>: <type> - <description>
- *   + <nestedField_2>?: <type> - <description, optional>
- * @property <listField>?: Array - <description of list items>:
- *   + <elemField_1>: <type> - <description>
- *   + <elemField_2>: <type> - <description>
+ * @property <exposedObj>: obj - <short description of exposed nested object>:
+ *   - <exposedField_1>: <type> - <description>
+ *   - <exposedList>?: Array - <description of list items>:
+ *       + <elemField_1>: <type> - <description>
+ *       + <elemField_2>?: <type> - <description, optional>
+ *
+ * @throws {<ErrorType>} <when/why>
+ * @throws {<ErrorType>} <when/why>
  *
  * @usage
  * ```<language>
- * <minimal working example showing instantiation, wrapping, or consumption>
+ * <minimal working example showing instantiation/wrapping/consumption>
  * ```
  ******************************************************************************************************************/
 ```
@@ -263,31 +271,30 @@ Classes, services, providers, and equivalent constructs (e.g., dependency inject
 - Always specify type, since it is not obvious at a glance.
 - Expand objects/lists/arrays following the same conventions as functions.
 
-### Usage ```@usage```
+#### Usage ```@usage```
 - Optional to provide a minimal working example of instantiation or use.
 
-### Placement
+#### Placement
 - Comment block must appear immediately above the class/service/provider declaration.
-- Each method in the class must be **documented separately** using the function block format.
+- Each method in the class/service/provider must still be **documented separately** using the function block format.
 
 ## Comment Block For Types / Interfaces
 Types, interfaces, and equivalent schema/struct definitions should be documented to explain the shape and contracts.
 ```javascript
 /******************************************************************************************************************
- * <Brief imperative summary of the type/interface>
+ * <brief imperative summary of the type/interface and its invariants/contracts>
  *
  * @property <field_1>: <type> - <meaning/constraints>
  * @property <field_2>?: <type> - <optional/defaults>
  * @property <nestedObj>: obj - <short description of nested object>:
- *   + <nestedField_1>: <type> - <description>
- *   + <nestedField_2>?: <type> - <description, optional>
- * @property <listField>?: Array - <description of list items>:
- *   + <elemField_1>: <type> - <description>
- *   + <elemField_2>: <type> - <description>
+ *   - <nestedField_1>: <type> - <description>
+ *   - <nestedList>?: Array - <description of list items>:
+ *       + <elemField_1>: <type> - <description>
+ *       + <elemField_2>?: <type> - <description, optional>
  *
  * @usage
  * ```<language>
- * <minimal example constructing or consuming the type/interface>
+ * <minimal example constructing/consuming the type/interface>
  * ```
  ******************************************************************************************************************/
 ```
