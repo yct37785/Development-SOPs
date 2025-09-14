@@ -9,11 +9,11 @@ Primitive/typed params/return type. Synchronous function.
 /******************************************************************************************************************
  * <Brief imperative summary>
  *
- * @param <name> - <description/constraints>
- * @param <param_1> - <description of param>
- * @param <param_2> - <description of param>
+ * @param <name>: <type> - <description/constraints>
+ * @param <param_1>: <type> - <description of param>
+ * @param <param_2>: <type> - <description of param>
  *
- * @return <Type> - <description of return>
+ * @return <type> - <description of return>
  *
  * @throws {<ErrorType>} <when/why>
  * @throws {<ErrorType>} <when/why>
@@ -31,22 +31,22 @@ With generic/object params/return with nested fields type. Asynchronous function
  * [ASYNC] <brief imperative summary>
  *
  * @param <name>: <type> - <description/constraints>
- * @param <objectParam>: <obj type> - <description of object>:
+ * @param <objectParam>: <type> - <description of object>:
  *   - <field_1>: <type> - <description>
  *   - <field_2>?: <type> - <description, optional>
- *   - <nestedObj>: <obj type> - <short description of nested object>:
- *       - <nestedField_1>: <type> - <description>
+ *   - <nestedObj>: <type> - <short description of nested object>:
+ *       + <nestedField_1>: <type> - <description>
  *   - <listField>?: <list type> - <description of list items>:
- *       - <elemField_1>: <type> - <description>
- *       - <elemField_2>: <type> - <description>
+ *       + <elemField_1>: <type> - <description>
+ *       + <elemField_2>: <type> - <description>
  *
- * @return <Type> - <description of return>:
+ * @return <type> - <description of return>:
  *   - <field_1>: <type> - <description>
- *   - <nestedObj>: <obj type> - <short description of nested object>:
- *       - <nestedField_1>: <type> - <description>
+ *   - <nestedObj>: <type> - <short description of nested object>:
+ *       + <nestedField_1>: <type> - <description>
  *   - <listField>?: <list type> - <description of list items>:
- *       - <elemField_1>: <type> - <description>
- *       - <elemField_2>: <type> - <description>
+ *       + <elemField_1>: <type> - <description>
+ *       + <elemField_2>: <type> - <description>
  *
  * @throws {<ErrorType>} <when/why>
  * @throws {<ErrorType>} <when/why>
@@ -67,6 +67,7 @@ With generic/object params/return with nested fields type. Asynchronous function
 - Document all parameters.
 - Always declare the type (primitive, object, list, etc.).
 - Expand objects by listing their nested fields, each with its type.
+- Use ```-``` for normal nesting, ```+``` for deeper fields for readability.
 - Expand arrays/lists/vectors by declaring them as ```Array```, ```List```, ```std::vector```, etc. then expand their element fields below.
 - Mark optional fields with ```?```.
 
@@ -100,18 +101,18 @@ With generic/object params/return with nested fields type. Asynchronous function
  *   - limit?: number - max activity items to include (default: 10; range: 1–100)
  * @param req: object - request context:
  *   - headers: object - request headers:
- *       - authToken: string - bearer token used for authorization
+ *       + authToken: string - bearer token used for authorization
  *
  * @return UserOverview - resolved overview:
  *   - profile: object - primary identity fields:
- *       - id: string - unique user id
- *       - email: string - user’s email address
- *       - displayName: string - human-friendly display name
- *       - createdAt: string - ISO timestamp of account creation
+ *       + id: string - unique user id
+ *       + email: string - user’s email address
+ *       + displayName: string - human-friendly display name
+ *       + createdAt: string - ISO timestamp of account creation
  *   - activity?: Array - recent activity (if requested):
- *       - id: string - activity id
- *       - type: string - activity type (e.g., LOGIN)
- *       - at: string - ISO timestamp when the activity occurred
+ *       + id: string - activity id
+ *       + type: string - activity type (e.g., LOGIN)
+ *       + at: string - ISO timestamp when the activity occurred
  *
  * @throws {AuthError} when the auth token is missing, expired, or invalid
  * @throws {NotFoundError} when the user does not exist
@@ -150,18 +151,18 @@ export async function getUserOverview(
  *   - limit?: int — max activity items to include (default: 10; range: 1–100)
  * @param req: Request - request context:
  *   - headers: Headers - request headers:
- *       - authToken: std::string — bearer token used for authorization
+ *       + authToken: std::string — bearer token used for authorization
  *
  * @return UserOverview — resolved overview:
  *   - profile: std::map<std::string, std::string> — primary identity fields:
- *       - id: std::string — unique user id
- *       - email: std::string — user’s email address
- *       - displayName: std::string — human-friendly display name
- *       - createdAt: std::string — ISO timestamp of account creation
+ *       + id: std::string — unique user id
+ *       + email: std::string — user’s email address
+ *       + displayName: std::string — human-friendly display name
+ *       + createdAt: std::string — ISO timestamp of account creation
  *   - activity?: std::vector<ActivityItem> — recent activity (if requested):
- *       - id: std::string — activity id
- *       - type: std::string — activity type (e.g., LOGIN)
- *       - at: std::string — ISO timestamp when the activity occurred
+ *       + id: std::string — activity id
+ *       + type: std::string — activity type (e.g., LOGIN)
+ *       + at: std::string — ISO timestamp when the activity occurred
  *
  * @throws {AuthError} when the auth token is missing, expired, or invalid
  * @throws {NotFoundError} when the user does not exist
@@ -192,18 +193,18 @@ UserOverview getUserOverview(const std::string& userId,
  *   - limit?: int — max activity items to include (default: 10; range: 1–100)
  * @param req: Request - request context:
  *   - headers: Headers - request headers:
- *       - authToken: String — bearer token used for authorization
+ *       + authToken: String — bearer token used for authorization
  *
  * @return UserOverview — resolved overview:
  *   - profile: Map<String, String> — primary identity fields:
- *       - id: String — unique user id
- *       - email: String — user’s email address
- *       - displayName: String — human-friendly display name
- *       - createdAt: String — ISO timestamp of account creation
+ *       + id: String — unique user id
+ *       + email: String — user’s email address
+ *       + displayName: String — human-friendly display name
+ *       + createdAt: String — ISO timestamp of account creation
  *   - activity?: List<ActivityItem> — recent activity (if requested):
- *       - id: String — activity id
- *       - type: String — activity type (e.g., LOGIN)
- *       - at: String — ISO timestamp when the activity occurred
+ *       + id: String — activity id
+ *       + type: String — activity type (e.g., LOGIN)
+ *       + at: String — ISO timestamp when the activity occurred
  *
  * @throws {AuthException} when the auth token is missing, expired, or invalid
  * @throws {NotFoundException} when the user does not exist
