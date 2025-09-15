@@ -155,6 +155,7 @@ Follow the **General Conventions** for ```@template```, ```@param```, ```@proper
 ### Notes
 - Only document constructor parameters in the class block.
 - Individual methods inside the class must be documented separately using the **function block format**.
+- Do not need to define a ```@return``` as it is expected that the class or equivalent will be returned itself.
 
 ## Comment Block For Types / Interfaces
 Types, interfaces, structs, or equivalent schema definitions must have a block comment directly above their declaration.
