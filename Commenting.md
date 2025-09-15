@@ -138,10 +138,10 @@ Follow the **General Conventions** for ```@template```, ```@param```, ```@proper
  *
  * @template T - <what T represents / constraint / default if applicable>
  *
- * @param <ctorOrProps> - <constructor args or provider props>
- *
  * @property <field_1> - <meaning/constraints>
  * @property <field_2>? - <optional/defaults>
+ *
+ * @param <ctorOrProps> - <constructor args or provider props>
  *
  * @throws {<ErrorType>} <when/why>
  *
