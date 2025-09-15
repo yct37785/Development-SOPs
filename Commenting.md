@@ -30,6 +30,9 @@ With generic/object params/return with nested fields type. Asynchronous function
 /******************************************************************************************************************
  * [ASYNC] <brief imperative summary>
  *
+ * @template T - <what T represents / constraint / default if applicable>
+ * @template U - <what U represents / constraint / default if applicable>
+ *
  * @param <name> - <description/constraints>
  * @param <objectParam> - <description of object>:
  *   - <field_1>: <type> - <description>
@@ -62,6 +65,12 @@ With generic/object params/return with nested fields type. Asynchronous function
 #### Brief
 - A short, imperative summary at the top of the block.
 - Prepend ```[ASYNC]``` if the function is asynchronous.
+
+#### Templates ```@template```
+- Document generic type parameters (e.g., ```T```, ```K```, ```V```).
+- Describe:
+  - What the type stands for (domain meaning).
+  - Any constraints (```extends …```) and defaults (```= …```).
 
 #### Parameters ```@param```
 - Document all parameters.
@@ -224,10 +233,13 @@ public CompletableFuture<UserOverview> getUserOverview(String userId, Options op
 ```
 
 ## Comment Block For Classes / Services / Providers
-Classes, services, providers, and equivalent constructs (e.g., dependency injection containers, context managers) should be documented using block comments immediately above their declaration. Use ```@param``` for constructor/props inputs, and ```@property``` for exposed fields.
+Classes, services, providers, and equivalent constructs (e.g., dependency injection containers, context managers) should be documented using block comments immediately above their declaration.
 ```javascript
 /******************************************************************************************************************
  * <brief imperative summary of the class/service/provider>
+ *
+ * @template T - <what T represents / constraint / default if applicable>
+ * @template U - <what U represents / constraint / default if applicable>
  *
  * @param <ctorOrProps> - <description/constraints>
  * @param <options>? - <optional behavior/defaults>:
@@ -261,28 +273,32 @@ Classes, services, providers, and equivalent constructs (e.g., dependency inject
 - A short, imperative summary of what the class/service/provider does.
 - State its purpose, guarantees, and typical use cases.
 
+#### Templates ```@template```
+- Same conventions as with functions.
+
 #### Parameters ```@param```
-- Use for **constructor arguments** or **provider props**.
-- Omit type if already declared in the signature.
-- Expand objects/lists/arrays following the same conventions as functions.
+- Same conventions as functions.
+- Declare here  only for **constructor arguments** or **provider props**, if constructor is delcared as individual functions, then follow function conventions for that constructor.
 
 #### Properties ```@property```
+- Same conventions as functions ```@params```.
 - Use for **public fields**, **static members**, or **exposed context values**.
-- Always specify type, since it is not obvious at a glance.
-- Expand objects/lists/arrays following the same conventions as functions.
 
 #### Usage ```@usage```
 - Optional to provide a minimal working example of instantiation or use.
 
 #### Placement
 - Comment block must appear immediately above the class/service/provider declaration.
-- Each method in the class/service/provider must still be **documented separately** using the function block format.
+- Individual method in the class/service/provider must still be **documented separately** using the function block format.
 
 ## Comment Block For Types / Interfaces
 Types, interfaces, and equivalent schema/struct definitions should be documented to explain the shape and contracts.
 ```javascript
 /******************************************************************************************************************
  * <brief imperative summary of the type/interface and its invariants/contracts>
+ *
+ * @template T - <what T represents / constraint / default if applicable>
+ * @template U - <what U represents / constraint / default if applicable>
  *
  * @property <field_1>: <type> - <meaning/constraints>
  * @property <field_2>?: <type> - <optional/defaults>
@@ -303,9 +319,11 @@ Types, interfaces, and equivalent schema/struct definitions should be documented
 #### Brief
 - A short, imperative summary of the type/interface and its role in the domain.
 
+#### Templates ```@template```
+- Same conventions as with functions.
+
 #### Properties ```@property```
-- Document all fields with types and meanings.
-- Expand objects/lists/arrays following the same conventions as functions.
+- Same general conventions as functions ```@params```.
 
 #### Usage ```@usage```
 - Optional to provide a minimal example showing construction or consumption.
