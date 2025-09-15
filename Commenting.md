@@ -14,7 +14,7 @@ A block comment follows this generalized structure:
  *   - <nestedField>: <obj type> - <nested description>:
  *     + <deepField>: <type> - <deep nested description>
  *
- * @param <name>: - <parameter description>
+ * @param <name> - <parameter description>
  *   - <nestedList>: <list type> - <list description>:
  *     + <listElem>: <type> - <list elem description>
  *
