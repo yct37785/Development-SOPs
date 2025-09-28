@@ -8,23 +8,25 @@ A block comment follows this generalized structure:
 /******************************************************************************************************************
  * <[ASYNC] Brief imperative summary>
  *
- * @template <T> - <generic type parameter explanation>
+ * @template <T> - <Generic type parameter explanation>
  *
- * @property <field> - <property description>
- *   - <nestedField>: <obj type> - <nested description>:
- *     + <deepField>: <type> - <deep nested description>
+ * @property <prop> - <Property description>:
+ *   - <nestedProp>  - <Nested description>:
+ *     + <deepNestedProp>  - <Deep nested description>
+ *     + <deepNestedProp2> - <Deep nested description>
  *
- * @param <name> - <parameter description>
- *   - <nestedList>: <list type> - <list description>:
- *     + <listElem>: <type> - <list elem description>
+ * @param <param> - <Parameter description>:
+ *   - <nestedParam>     - <Nested description>
+ *   - <nestedParamList> - <List description>:
+ *     + <listElem>        - <List element description>
  *
- * @return - <return value description>
+ * @return - <Return value description>
  *
- * @throws {<ErrorType>} <condition when error occurs>
+ * @throws {<ErrorType>} <Condition when error occurs>
  *
  * @usage
  * ```<language>
- * <minimal working example>
+ * <Minimal working example>
  * ```
  ******************************************************************************************************************/
 ```
@@ -44,13 +46,24 @@ A block comment follows this generalized structure:
 
 ### Fields (```@property```, ```@param```, ```@return```)
 - Top level field:
-  - No need to delcare type as it is visible/can be infered from the signature.
-  - Syntax: ```@<field> <name> - <description/constraints>```
+  - Syntax: ```@<field> <name> - <Description/constraints>```
 - Nested field:
-  - Always specify the type since they are not visible in the signature.
-  - Syntax: ```@param <name>: <type> - <description/constraints>```
-  - Use ```-``` for first-level nesting, ```+``` for deeper nesting for readability.
-- Optional fields should be marked with ```?```.
+  - Alternate between ```-``` and ```+``` for each layer of nesting for readability.
+  - Syntax:
+    ```
+    - <name> - <Description/constraints>
+      + <name> - <Description/constraints>
+    ```
+- Type declarations:
+  - Only specify a type if it is ambiguous or not inferable (i.e., not visible or clearly deducible from the signature).
+  - If the type is already declared in the signature (e.g., ```({ nestedField: string, nestedField2: number })```), do not redeclare it.
+  - Syntax: ```... <name>: <type> - ...```
+- Optional fields:
+  - Indicate optionality with ```?```.
+- Readability:
+  - Indent descriptions/constraints for fields, with same indentation depth for fields of the same level/nested level.
+  - Indentation level is up to individual preferences.
+  - Always begin descriptions/constraints with a capital letter.
 
 ### Properties ```@property```
 - For documenting types, interfaces, classes, providers, or services.
@@ -61,13 +74,13 @@ A block comment follows this generalized structure:
 - Follow field conventions specified above.
 
 ### Return ```@return```
-- Document all function or constructor parameters.
-- Top level syntax: ```@return - <description of return>```
+- Document all function or constructor return values.
+- Top-level syntax: ```@return - <Description of return>```.
 - Otherwise follow field conventions specified above.
 
 ### Throws ```@throws```
 - Document if/when and why the error occurs.
-- Syntax: ```@throws {<ErrorType>} <if/when/why>```
+- Syntax: ```@throws {<ErrorType>} <If/when/why>```
 
 ### Usage ```@usage```
 - Optional section for minimal working examples.
@@ -88,17 +101,17 @@ Primitive/typed params/return type. Synchronous function:
 /******************************************************************************************************************
  * <Brief imperative summary>
  *
- * @param <name> - <description/constraints>
- * @param <param_1> - <description of param>
- * @param <param_2>? - <description of param>
+ * @param <name>     - <Description/constraints>
+ * @param <param_1>  - <Description of param>
+ * @param <param_2>? - <Description of param>
  *
- * @return - <description of return>
+ * @return - <Description of return>
  *
- * @throws {<ErrorType>} <when/why>
+ * @throws {<ErrorType>} <When/why>
  *
  * @usage
  * ```<language>
- * <minimal working code snippet>
+ * <Minimal working code snippet>
  * ```
  ******************************************************************************************************************/
 ```
@@ -106,25 +119,25 @@ Primitive/typed params/return type. Synchronous function:
 With generic/object params/return with nested fields type. Asynchronous function:
 ```javascript
 /******************************************************************************************************************
- * [ASYNC] <brief imperative summary>
+ * [ASYNC] <Brief imperative summary>
  *
- * @template T - <what T represents / constraint / default if applicable>
+ * @template T - <What T represents / constraint / default if applicable>
  *
- * @param <objectParam> - <description of object>:
- *   - <field_1>?: <type> - <description>
- *   - <nestedList>: <list type> - <list description>:
- *     + <listElem>: <type> - <list elem description>
+ * @param <objectParam> - <Description of object>:
+ *   - <field_1>?  - <Description>
+ *   - <nestedList>  - <List description>:
+ *     + <listElem>    - <List element description>
  *
- * @return - <description of return>:
- *   - <field_1>?: <type> - <description>
- *   - <nestedField>: <obj type> - <nested description>:
- *     + <deepField>: <type> - <deep nested description>
+ * @return - <Description of return>:
+ *   - <field_1>?  - <Description>
+ *   - <nestedField>  - <Nested description>:
+ *     + <deepField>    - <Deep nested description>
  *
- * @throws {<ErrorType>} <when/why>
+ * @throws {<ErrorType>} <When/why>
  *
  * @usage
  * ```<language>
- * <minimal working code snippet>
+ * <Minimal working code snippet>
  * ```
  ******************************************************************************************************************/
 ```
@@ -134,20 +147,20 @@ Classes, services, providers, dependency-injection containers, context managers,
 Follow the **General Conventions** for ```@template```, ```@param```, ```@property```, ```@throws```, and ```@usage```.
 ```javascript
 /******************************************************************************************************************
- * <brief imperative summary of the class/service/provider>
+ * <Brief imperative summary of the class/service/provider>
  *
- * @template T - <what T represents / constraint / default if applicable>
+ * @template T - <What T represents / constraint / default if applicable>
  *
- * @property <field_1> - <meaning/constraints>
- * @property <field_2>? - <optional/defaults>
+ * @property <field_1>  - <Meaning/constraints>
+ * @property <field_2>? - <Optional/defaults>
  *
- * @param <ctorOrProps> - <constructor args or provider props>
+ * @param <ctorOrProps> - <Constructor args or provider props>
  *
- * @throws {<ErrorType>} <when/why>
+ * @throws {<ErrorType>} <When/why>
  *
  * @usage
  * ```<language>
- * <minimal working example showing instantiation/wrapping/consumption>
+ * <Minimal working example showing instantiation/wrapping/consumption>
  * ```
  ******************************************************************************************************************/
 ```
@@ -155,26 +168,26 @@ Follow the **General Conventions** for ```@template```, ```@param```, ```@proper
 ### Notes
 - Only document constructor parameters in the class block.
 - Individual methods inside the class must be documented separately using the **function block format**.
-- Do not need to define a ```@return``` as it is expected that the class or equivalent will be returned itself.
+- Do not define a ```@return``` as it is expected that the class or equivalent will be returned itself.
 
 ## Comment Block For Types / Interfaces
 Types, interfaces, structs, or equivalent schema definitions must have a block comment directly above their declaration.
 Follow the **General Conventions** for ```@template```, ```@property```, and ```@usage```.
 ```javascript
 /******************************************************************************************************************
- * <brief imperative summary of the type/interface and its contracts>
+ * <Brief imperative summary of the type/interface and its contracts>
  *
- * @template T - <what T represents / constraint / default if applicable>
+ * @template T - <What T represents / constraint / default if applicable>
  *
- * @property <field_1> - <meaning/constraints>
- * @property <nestedObj> - <nested description>:
- *   - <nestedField_1>: <type> - <description>
- *   - <nestedList>?: <list type> - <list description>:
- *     + <listElem>: <type> - <list elem description>
+ * @property <field_1>    - <Meaning/constraints>
+ * @property <nestedObj>  - <Nested description>:
+ *   - <nestedField_1>  - <Description>
+ *   - <nestedList>?    - <List description>:
+ *     + <listElem>       - <List element description>
  *
  * @usage
  * ```<language>
- * <minimal example constructing/consuming the type/interface>
+ * <Minimal example constructing/consuming the type/interface>
  * ```
  ******************************************************************************************************************/
 ```
