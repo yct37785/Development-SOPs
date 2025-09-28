@@ -60,8 +60,8 @@ A block comment follows this generalized structure:
   - Syntax: ```... <name>: <type> - ...```
 - Optional fields:
   - Indicate optionality with ```?```.
-- Readability:
-  - Indent descriptions/constraints for fields, with same indentation depth for fields of the same level/nested level.
+- Readability suggestions:
+  - Indent descriptions/constraints for fields, with same indentation depth for fields of the same level/nested level if possible.
   - Indentation level is up to individual preferences.
   - Always begin descriptions/constraints with a capital letter.
 
