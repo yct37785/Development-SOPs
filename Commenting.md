@@ -11,16 +11,18 @@ A block comment follows this generalized structure:
  * @template <T> - <Generic type parameter explanation>
  *
  * @property <prop> - <Property description>:
- *   - <nestedProp>  - <Nested description>:
+ *   - <nestedProp>: {} - <Nested description>:
  *     + <deepNestedProp>  - <Deep nested description>
  *     + <deepNestedProp2> - <Deep nested description>
  *
  * @param <param> - <Parameter description>:
- *   - <nestedParam>     - <Nested description>
- *   - <nestedParamList> - <List description>:
- *     + <listElem>        - <List element description>
+ *   - <nestedParam> - <Nested description>
+ *   - <nestedParamList>: [] - <List description>:
+ *     + <listElem> - <List element description>
  *
- * @return - <Return value description>
+ * @return - <Return value description>:
+ *   - <nestedResult>: {} - <Nested description>:
+ *     + <innerField> - <Inner description>
  *
  * @throws {<ErrorType>} <Condition when error occurs>
  *
@@ -48,21 +50,25 @@ A block comment follows this generalized structure:
 - Top level field:
   - Syntax: ```@<field> <name> - <Description/constraints>```
 - Nested field:
-  - Alternate between ```-``` and ```+``` for each layer of nesting for readability.
+  - Alternate between ```-``` and ```+``` at each level of nesting for readability.
   - Syntax:
     ```
     - <name> - <Description/constraints>
       + <name> - <Description/constraints>
     ```
+- Drilldown details:
+  - Do not expand into nested fields if the field’s type is already declared elsewhere (e.g., in its own symbol with a dedicated comment block).
+  - _Example_: If a parameter is typed as ```UserProfile```, and ```UserProfile``` has its own documented block, you only reference it by name here without listing its internal fields.
 - Type declarations:
-  - Only specify a type if it is ambiguous or not inferable (i.e., not visible or clearly deducible from the signature).
-  - If the type is already declared in the signature (e.g., ```({ nestedField: string, nestedField2: number })```), do not redeclare it.
+  - Specify types only when the field is ambiguous or not inferable (i.e., not visible or clearly deducible from the signature).
+  - Use ```{}``` for untyped object fields and ```[]``` for untyped arrays.
+  - Do not redeclare a type if it is already explicit in the signature (e.g., ```({ nestedField: string, nestedField2: number })```).
   - Syntax: ```... <name>: <type> - ...```
 - Optional fields:
   - Indicate optionality with ```?```.
 - Readability suggestions:
-  - Indent descriptions/constraints for fields, with same indentation depth for fields of the same level/nested level if possible.
-  - Indentation level is up to individual preferences.
+  - Indent descriptions/constraints according to hierarchy, keeping fields at the same level aligned.
+  - Indentation depth is flexible, but should remain consistent within a block.
   - Always begin descriptions/constraints with a capital letter.
 
 ### Properties ```@property```
@@ -103,7 +109,7 @@ Primitive/typed params/return type. Synchronous function:
  *
  * @param <name>     - <Description/constraints>
  * @param <param_1>  - <Description of param>
- * @param <param_2>? - <Description of param>
+ * @param <param_2>? - <Optional param description>
  *
  * @return - <Description of return>
  *
@@ -116,7 +122,7 @@ Primitive/typed params/return type. Synchronous function:
  ******************************************************************************************************************/
 ```
 
-With generic/object params/return with nested fields type. Asynchronous function:
+With generic/object params/return and nested fields. Asynchronous function:
 ```javascript
 /******************************************************************************************************************
  * [ASYNC] <Brief imperative summary>
@@ -124,14 +130,14 @@ With generic/object params/return with nested fields type. Asynchronous function
  * @template T - <What T represents / constraint / default if applicable>
  *
  * @param <objectParam> - <Description of object>:
- *   - <field_1>?  - <Description>
- *   - <nestedList>  - <List description>:
- *     + <listElem>    - <List element description>
+ *   - <field_1>? - <Optional description>
+ *   - <nestedList>: [] - <List description>:
+ *     + <listElem> - <List element description>
  *
  * @return - <Description of return>:
- *   - <field_1>?  - <Description>
- *   - <nestedField>  - <Nested description>:
- *     + <deepField>    - <Deep nested description>
+ *   - <field_1>? - <Optional description>
+ *   - <nestedField>: {} - <Nested description>:
+ *     + <deepField> - <Deep nested description>
  *
  * @throws {<ErrorType>} <When/why>
  *
@@ -179,11 +185,11 @@ Follow the **General Conventions** for ```@template```, ```@property```, and ```
  *
  * @template T - <What T represents / constraint / default if applicable>
  *
- * @property <field_1>    - <Meaning/constraints>
- * @property <nestedObj>  - <Nested description>:
- *   - <nestedField_1>  - <Description>
- *   - <nestedList>?    - <List description>:
- *     + <listElem>       - <List element description>
+ * @property <field_1>   - <Meaning/constraints>
+ * @property <nestedObj> - <Nested description>:
+ *   - <nestedField_1> - <Description>
+ *   - <nestedList>: [] - <List description>:
+ *     + <listElem> - <List element description>
  *
  * @usage
  * ```<language>
